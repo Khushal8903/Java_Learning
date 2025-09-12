@@ -1,0 +1,8 @@
+/*
+Q28. Write a java program to find all roots of a quadratic equation using if else. How to find all roots of a quadratic equation using if else in java programming.
+ 
+Example
+Input a: 8 ,  b: -4 , c: -2
+Output Root1: 0.80
+Root2: -0.30
+*/

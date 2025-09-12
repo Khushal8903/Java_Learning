@@ -1,0 +1,110 @@
+ **Practical Assignment Questions – do-while, break, continue**
+
+ **1. ATM PIN Validation**
+
+**Description:**
+Write a program that:
+
+* Asks the user for a 4-digit ATM PIN.
+* Gives **max 3 attempts** to enter the correct PIN using a do-while loop.
+* If the PIN is correct, print "Access Granted" and **break** the loop.
+* If attempts are over, print "Card Blocked".
+
+---
+
+ **2. Menu-Driven Calculator**
+
+**Description:**
+
+* Display a menu with 4 operations: Add, Subtract, Multiply, Divide.
+* Use a do-while loop to keep showing the menu until the user chooses "Exit".
+* Use **continue** to skip calculation if the user enters an invalid choice.
+* If the user enters "Exit", **break** the loop.
+
+---
+
+ **3. Password Strength Checker**
+
+**Description:**
+
+* Ask the user to enter a password in a do-while loop.
+* If the password length is less than 6 characters, display a message and **continue** to re-ask.
+* If the password is "quit", stop asking (**break**).
+* Otherwise, print "Password accepted" and exit.
+
+---
+
+ **4. Number Guessing Game**
+
+**Description:**
+
+* System generates a random number between 1–100.
+* Use a do-while loop to let the user guess the number.
+* If guess is too high or low, give a hint and **continue**.
+* If the guess is correct, print "You guessed it!" and **break**.
+// use Random class and its method nextInt(range);
+---
+
+ **5. E-commerce Checkout Simulation**
+
+**Description:**
+
+* Display a list of items with prices.
+* Use a do-while loop to let the user keep adding items to the cart until they type "checkout".
+* If they type "skip", use **continue** to skip adding that item.
+* On checkout, print the total and exit the loop.
+
+---
+
+ **6. Temperature Logger**
+
+**Description:**
+
+* Ask the user to enter daily temperatures.
+* Use **continue** if the entered temperature is negative (invalid reading).
+* Use **break** if the user enters "stop".
+* Keep looping with do-while until break condition.
+
+---
+
+ **7. Train Ticket Booking**
+
+**Description:**
+
+* Ask the user to select a seat number.
+* If seat is already booked (use a sample booked seat list), **continue** to ask again.
+* If the user enters "exit", **break** the loop.
+* Use a do-while loop to keep asking until a valid seat is booked.
+
+---
+
+ **8. Email Address Validator**
+
+**Description:**
+
+* Ask the user for an email address.
+* If email doesn’t contain '@', **continue** to ask again.
+* If user enters "cancel", **break**.
+* Use a do-while loop to validate and accept only proper emails.
+
+---
+
+ **9. Restaurant Ordering System**
+
+**Description:**
+
+* Show menu items and let user order.
+* If they choose "skip", **continue** to next iteration without adding to order.
+* If "done" is entered, **break** and print final bill.
+* Implement using a do-while loop.
+
+---
+
+ **10. Student Marks Entry**
+
+**Description:**
+
+* Keep asking for student marks in a do-while loop.
+* If marks are negative, **continue** to skip and ask again.
+* If "stop" is entered, **break**.
+* Finally, display average marks of valid entries.
