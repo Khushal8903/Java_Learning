@@ -13,8 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-//import jakarta.servlet.*;
-
 @WebServlet("/login")
 public class login extends HttpServlet {
 
@@ -23,32 +21,32 @@ public class login extends HttpServlet {
 
         String username = req.getParameter("username");
         String pass = req.getParameter("password");
-        
+
         HttpSession session = req.getSession();
         session.setAttribute("uname", username);
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+        String sql = "SELECT * FROM register WHERE username=? AND password=?";
 
+        try (
             Connection con = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/registration_demo?useSSL=false&serverTimezone=UTC",
                 "root",
                 "Pass@123"
             );
+            PreparedStatement ps = con.prepareStatement(sql);
+        ) {
 
-            PreparedStatement ps = con.prepareStatement(
-                "SELECT * FROM register WHERE username=? AND password=?"
-            );
             ps.setString(1, username);
             ps.setString(2, pass);
 
-            ResultSet rs = ps.executeQuery();
+            try (ResultSet rs = ps.executeQuery()) {
 
-            if (rs.next()) {
-                req.getRequestDispatcher("/home.jsp").forward(req, res);
-            } else {
-                req.setAttribute("error", "Invalid username or password");
-                req.getRequestDispatcher("/login.jsp").forward(req, res);
+                if (rs.next()) {
+                    req.getRequestDispatcher("/home.jsp").forward(req, res);
+                } else {
+                    req.setAttribute("error", "Invalid username or password");
+                    req.getRequestDispatcher("/login.jsp").forward(req, res);
+                }
             }
 
         } catch (Exception e) {

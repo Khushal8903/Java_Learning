@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.sql.*;
 
 @WebServlet("/register")
-public class registrationservlet extends HttpServlet {
+public class RegistrationServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -19,9 +19,6 @@ public class registrationservlet extends HttpServlet {
         String mobile = request.getParameter("mobile");
         String email = request.getParameter("email");
 
-        
-        HttpSession session = request.getSession();
-        
         // Validation
         if (name.isEmpty() || username.isEmpty() || pass.isEmpty()) {
             request.setAttribute("error", "All fields are required!");
@@ -29,46 +26,42 @@ public class registrationservlet extends HttpServlet {
             return;
         }
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+        String sql = "INSERT INTO register (name, password, username, age, mobile, email) VALUES (?, ?, ?, ?, ?, ?)";
 
+        try (
             Connection con = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/registration_demo?useSSL=false&serverTimezone=UTC",
                 "root",
                 "Pass@123"
             );
+            PreparedStatement ps = con.prepareStatement(sql);
+        ) {
 
-            PreparedStatement ps = con.prepareStatement(
-            	    "INSERT INTO register (name, password, username, age, mobile, email) VALUES (?, ?, ?, ?, ?, ?)"
-            	);
-            	ps.setString(1, name);
-            	ps.setString(2, pass);
-            	ps.setString(3, username);
-            	ps.setString(4, age);
-            	ps.setString(5, mobile);
-            	ps.setString(6, email);
-
+            ps.setString(1, name);
+            ps.setString(2, pass);
+            ps.setString(3, username);
+            ps.setString(4, age);
+            ps.setString(5, mobile);
+            ps.setString(6, email);
 
             int count = ps.executeUpdate();
 
             if (count > 0) {
-                // ✅ Redirect after success
                 response.sendRedirect("login.jsp?msg=success");
-                return;
             } else {
                 request.setAttribute("error", "Registration failed!");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             }
 
-            //con.close();
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Duplicate username/email
+            request.setAttribute("error", "User already exists!");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();
-            session.setAttribute("er", "User Already Exist!");
+            request.setAttribute("error", "Something went wrong. Please try again.");
             request.getRequestDispatcher("index.jsp").forward(request, response);
-            
-            
-            System.out.println("-------------------------------");
         }
     }
 }
