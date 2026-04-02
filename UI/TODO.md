@@ -1,0 +1,3 @@
+- [x] Fix typos and improve HTML structure with semantic elements
+- [x] Enhance CSS styles for better design and responsiveness
+- [x] Test the updated template
